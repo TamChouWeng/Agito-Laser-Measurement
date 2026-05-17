@@ -2,32 +2,16 @@ using AAComm.Shared;
 using AAMotion;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Diagnostics.Eventing.Reader;
-using System.Drawing;
-using System.Drawing.Text;
-using System.IO;
-using System.Linq;
-using System.Runtime.Remoting.Messaging;
-using System.Security.Cryptography;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading;
 using System.Threading.Tasks;
-using System.Web;
 using System.Windows.Forms;
-using YamlDotNet.Core;
-using YamlDotNet.Core.Tokens;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace AAMotion_V7_Example
 {
     public partial class Form1 : Form
     {
         private MotionController _controller;
-        bool _connected;
-        EventHandler errorHandler;
+        private bool _connected;
 
         private readonly Dictionary<string, AxisRef> axisRefs = new Dictionary<string, AxisRef>
             {
@@ -241,6 +225,7 @@ namespace AAMotion_V7_Example
                         Text = "AAMotion V7 Example (FW: " + _controller.FirmwareVersion + ")";
                         Conn_button.Text = "Disconnect";
                         Addr_textBox.Enabled = false;
+                        _connected = true;
                     }
 
 
@@ -262,6 +247,16 @@ namespace AAMotion_V7_Example
                     PosErr_textBox.Text = Convert.ToString(iposerr);
                     Vel_textBox.Text = Convert.ToString(ivel);
                     MotorCurr_textBox.Text = Convert.ToString(imotorcurr);
+                }
+                else
+                {
+                    if (_connected)
+                    {
+                        Text = "AAMotion V7 Example";
+                        Conn_button.Text = "Connect";
+                        Addr_textBox.Enabled = true;
+                        _connected = false;
+                    }
                 }
             }
             catch

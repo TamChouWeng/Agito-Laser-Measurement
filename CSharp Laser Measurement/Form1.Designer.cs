@@ -39,6 +39,8 @@ namespace AAMotion_V7_Example
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.timerRefreshUI = new System.Windows.Forms.Timer(this.components);
             this.status_groupBox = new System.Windows.Forms.GroupBox();
+            this.text_MotorState = new System.Windows.Forms.TextBox();
+            this.labelMotorState = new System.Windows.Forms.Label();
             this.text_MotionReason = new System.Windows.Forms.TextBox();
             this.text_ConFlt = new System.Windows.Forms.TextBox();
             this.text_MotionStat = new System.Windows.Forms.TextBox();
@@ -47,6 +49,9 @@ namespace AAMotion_V7_Example
             this.label124 = new System.Windows.Forms.Label();
             this.laserMeasurement_groupBox = new System.Windows.Forms.GroupBox();
             this.buttonStartLaser = new System.Windows.Forms.Button();
+            this.buttonStopLaser = new System.Windows.Forms.Button();
+            this.labelCurrentRunText = new System.Windows.Forms.Label();
+            this.labelCurrentRunValue = new System.Windows.Forms.Label();
             this.numericDwellTime = new System.Windows.Forms.NumericUpDown();
             this.labelDwellTime = new System.Windows.Forms.Label();
             this.numericRuns = new System.Windows.Forms.NumericUpDown();
@@ -62,6 +67,7 @@ namespace AAMotion_V7_Example
             this.comboBoxBidirectional = new System.Windows.Forms.ComboBox();
             this.labelBidirectional = new System.Windows.Forms.Label();
             this.motionSpec_groupBox = new System.Windows.Forms.GroupBox();
+            this.buttonEnableDisable = new System.Windows.Forms.Button();
             this.numericEmrgDecel = new System.Windows.Forms.NumericUpDown();
             this.labelEmrgDecel = new System.Windows.Forms.Label();
             this.numericDecel = new System.Windows.Forms.NumericUpDown();
@@ -296,6 +302,8 @@ namespace AAMotion_V7_Example
             // 
             // status_groupBox
             // 
+            this.status_groupBox.Controls.Add(this.text_MotorState);
+            this.status_groupBox.Controls.Add(this.labelMotorState);
             this.status_groupBox.Controls.Add(this.text_MotionReason);
             this.status_groupBox.Controls.Add(this.text_ConFlt);
             this.status_groupBox.Controls.Add(this.text_MotionStat);
@@ -304,10 +312,27 @@ namespace AAMotion_V7_Example
             this.status_groupBox.Controls.Add(this.label124);
             this.status_groupBox.Location = new System.Drawing.Point(23, 144);
             this.status_groupBox.Name = "status_groupBox";
-            this.status_groupBox.Size = new System.Drawing.Size(687, 100);
+            this.status_groupBox.Size = new System.Drawing.Size(687, 130);
             this.status_groupBox.TabIndex = 56;
             this.status_groupBox.TabStop = false;
             this.status_groupBox.Text = "Status";
+            // 
+            // text_MotorState
+            // 
+            this.text_MotorState.Location = new System.Drawing.Point(119, 98);
+            this.text_MotorState.Name = "text_MotorState";
+            this.text_MotorState.ReadOnly = true;
+            this.text_MotorState.Size = new System.Drawing.Size(558, 22);
+            this.text_MotorState.TabIndex = 63;
+            // 
+            // labelMotorState
+            // 
+            this.labelMotorState.AutoSize = true;
+            this.labelMotorState.Location = new System.Drawing.Point(12, 104);
+            this.labelMotorState.Name = "labelMotorState";
+            this.labelMotorState.Size = new System.Drawing.Size(78, 16);
+            this.labelMotorState.TabIndex = 62;
+            this.labelMotorState.Text = "Motor State:";
             // 
             // text_MotionReason
             // 
@@ -363,6 +388,9 @@ namespace AAMotion_V7_Example
             // laserMeasurement_groupBox
             // 
             this.laserMeasurement_groupBox.Controls.Add(this.buttonStartLaser);
+            this.laserMeasurement_groupBox.Controls.Add(this.buttonStopLaser);
+            this.laserMeasurement_groupBox.Controls.Add(this.labelCurrentRunText);
+            this.laserMeasurement_groupBox.Controls.Add(this.labelCurrentRunValue);
             this.laserMeasurement_groupBox.Controls.Add(this.numericDwellTime);
             this.laserMeasurement_groupBox.Controls.Add(this.labelDwellTime);
             this.laserMeasurement_groupBox.Controls.Add(this.numericRuns);
@@ -377,22 +405,51 @@ namespace AAMotion_V7_Example
             this.laserMeasurement_groupBox.Controls.Add(this.labelStartPosition);
             this.laserMeasurement_groupBox.Controls.Add(this.comboBoxBidirectional);
             this.laserMeasurement_groupBox.Controls.Add(this.labelBidirectional);
-            this.laserMeasurement_groupBox.Location = new System.Drawing.Point(23, 250);
+            this.laserMeasurement_groupBox.Location = new System.Drawing.Point(23, 280);
             this.laserMeasurement_groupBox.Name = "laserMeasurement_groupBox";
-            this.laserMeasurement_groupBox.Size = new System.Drawing.Size(350, 340);
+            this.laserMeasurement_groupBox.Size = new System.Drawing.Size(350, 380);
             this.laserMeasurement_groupBox.TabIndex = 29;
             this.laserMeasurement_groupBox.TabStop = false;
             this.laserMeasurement_groupBox.Text = "Laser Measurement";
             // 
             // buttonStartLaser
             // 
-            this.buttonStartLaser.Location = new System.Drawing.Point(150, 285);
+            this.buttonStartLaser.Location = new System.Drawing.Point(20, 330);
             this.buttonStartLaser.Name = "buttonStartLaser";
             this.buttonStartLaser.Size = new System.Drawing.Size(120, 35);
             this.buttonStartLaser.TabIndex = 44;
             this.buttonStartLaser.Text = "Start";
             this.buttonStartLaser.UseVisualStyleBackColor = true;
             this.buttonStartLaser.Click += new System.EventHandler(this.buttonStartLaser_Click);
+            // 
+            // buttonStopLaser
+            // 
+            this.buttonStopLaser.Location = new System.Drawing.Point(150, 330);
+            this.buttonStopLaser.Name = "buttonStopLaser";
+            this.buttonStopLaser.Size = new System.Drawing.Size(120, 35);
+            this.buttonStopLaser.TabIndex = 45;
+            this.buttonStopLaser.Text = "Stop";
+            this.buttonStopLaser.Enabled = false;
+            this.buttonStopLaser.UseVisualStyleBackColor = true;
+            this.buttonStopLaser.Click += new System.EventHandler(this.buttonStopLaser_Click);
+            // 
+            // labelCurrentRunText
+            // 
+            this.labelCurrentRunText.AutoSize = true;
+            this.labelCurrentRunText.Location = new System.Drawing.Point(20, 285);
+            this.labelCurrentRunText.Name = "labelCurrentRunText";
+            this.labelCurrentRunText.Size = new System.Drawing.Size(76, 16);
+            this.labelCurrentRunText.TabIndex = 46;
+            this.labelCurrentRunText.Text = "Current run:";
+            // 
+            // labelCurrentRunValue
+            // 
+            this.labelCurrentRunValue.AutoSize = true;
+            this.labelCurrentRunValue.Location = new System.Drawing.Point(150, 285);
+            this.labelCurrentRunValue.Name = "labelCurrentRunValue";
+            this.labelCurrentRunValue.Size = new System.Drawing.Size(14, 16);
+            this.labelCurrentRunValue.TabIndex = 47;
+            this.labelCurrentRunValue.Text = "0";
             // 
             // labelBidirectional
             // 
@@ -512,6 +569,7 @@ namespace AAMotion_V7_Example
             // 
             // motionSpec_groupBox
             // 
+            this.motionSpec_groupBox.Controls.Add(this.buttonEnableDisable);
             this.motionSpec_groupBox.Controls.Add(this.numericEmrgDecel);
             this.motionSpec_groupBox.Controls.Add(this.labelEmrgDecel);
             this.motionSpec_groupBox.Controls.Add(this.numericDecel);
@@ -520,12 +578,22 @@ namespace AAMotion_V7_Example
             this.motionSpec_groupBox.Controls.Add(this.labelAccel);
             this.motionSpec_groupBox.Controls.Add(this.numericSpeed);
             this.motionSpec_groupBox.Controls.Add(this.labelSpeed);
-            this.motionSpec_groupBox.Location = new System.Drawing.Point(417, 250);
+            this.motionSpec_groupBox.Location = new System.Drawing.Point(417, 280);
             this.motionSpec_groupBox.Name = "motionSpec_groupBox";
-            this.motionSpec_groupBox.Size = new System.Drawing.Size(293, 200);
+            this.motionSpec_groupBox.Size = new System.Drawing.Size(293, 240);
             this.motionSpec_groupBox.TabIndex = 60;
             this.motionSpec_groupBox.TabStop = false;
             this.motionSpec_groupBox.Text = "Motion Specification";
+            // 
+            // buttonEnableDisable
+            // 
+            this.buttonEnableDisable.Location = new System.Drawing.Point(150, 180);
+            this.buttonEnableDisable.Name = "buttonEnableDisable";
+            this.buttonEnableDisable.Size = new System.Drawing.Size(120, 35);
+            this.buttonEnableDisable.TabIndex = 8;
+            this.buttonEnableDisable.Text = "Enable/Disable";
+            this.buttonEnableDisable.UseVisualStyleBackColor = true;
+            this.buttonEnableDisable.Click += new System.EventHandler(this.buttonEnableDisable_Click);
             // 
             // numericEmrgDecel
             // 
@@ -595,7 +663,7 @@ namespace AAMotion_V7_Example
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(750, 620);
+            this.ClientSize = new System.Drawing.Size(750, 700);
             this.Controls.Add(this.motionSpec_groupBox);
             this.Controls.Add(this.laserMeasurement_groupBox);
             this.Controls.Add(this.status_groupBox);
@@ -659,8 +727,13 @@ namespace AAMotion_V7_Example
         private System.Windows.Forms.TextBox text_MotionReason;
         private System.Windows.Forms.TextBox text_ConFlt;
         private System.Windows.Forms.TextBox text_MotionStat;
+        private System.Windows.Forms.TextBox text_MotorState;
+        private System.Windows.Forms.Label labelMotorState;
         private System.Windows.Forms.GroupBox laserMeasurement_groupBox;
         private System.Windows.Forms.Button buttonStartLaser;
+        private System.Windows.Forms.Button buttonStopLaser;
+        private System.Windows.Forms.Label labelCurrentRunText;
+        private System.Windows.Forms.Label labelCurrentRunValue;
         private System.Windows.Forms.Label labelBidirectional;
         private System.Windows.Forms.ComboBox comboBoxBidirectional;
         private System.Windows.Forms.Label labelStartPosition;
@@ -676,6 +749,7 @@ namespace AAMotion_V7_Example
         private System.Windows.Forms.Label labelDwellTime;
         private System.Windows.Forms.NumericUpDown numericDwellTime;
         private System.Windows.Forms.GroupBox motionSpec_groupBox;
+        private System.Windows.Forms.Button buttonEnableDisable;
         private System.Windows.Forms.NumericUpDown numericEmrgDecel;
         private System.Windows.Forms.Label labelEmrgDecel;
         private System.Windows.Forms.NumericUpDown numericDecel;
